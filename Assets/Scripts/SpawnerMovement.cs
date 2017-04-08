@@ -3,14 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnerMovement : MonoBehaviour {
+    //recieved from http://answers.unity3d.com/questions/754633/how-to-move-an-object-left-and-righ-looping.html
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public float moveArea = 1.5f;  // Amount to move left and right from the start point
+    public float moveSpeed = 2.0f;
+    private Vector3 startPos;
+
+    void Start()
+    {
+        startPos = transform.position;
+    }
+
+    void Update()
+    {
+        Vector3 v = startPos;
+        v.x += moveArea * Mathf.Sin(Time.time * moveSpeed);
+        transform.position = v;
+    }
 }
