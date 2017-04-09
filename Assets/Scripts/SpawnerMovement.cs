@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpawnerMovement : MonoBehaviour {
     //recieved from http://answers.unity3d.com/questions/754633/how-to-move-an-object-left-and-righ-looping.html
 
-    public float moveArea = 1.5f;  // Amount to move left and right from the start point
+    private float moveArea = 7.0f;  // Amount to move left and right from the start point
     public float moveSpeed = 2.0f;
     private Vector3 startPos;
 
