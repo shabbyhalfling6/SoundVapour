@@ -14,6 +14,7 @@ public class ShapeSpawnController : MonoBehaviour {
     private float triangleSpawnMax = 8;
     private float circleSpawnMax = 12;
 
+    public AudioSource sampleTrack;
 
     void Update ()
     {
@@ -21,7 +22,7 @@ public class ShapeSpawnController : MonoBehaviour {
 
         float[] spectrum = new float[512];
 
-        AudioListener.GetSpectrumData(spectrum, 0, FFTWindow.Rectangular);
+        sampleTrack.GetSpectrumData(spectrum, 0, FFTWindow.Rectangular);
 
         if (spawnTimer <= 0)
         {
@@ -31,16 +32,33 @@ public class ShapeSpawnController : MonoBehaviour {
                 if (spectrum[i] >= spawnThreshold)
                 {
                     if (i <= squareSpawnMax)
+                    {
                         Instantiate(shapes[0], shapeSpawners[0].position, shapeSpawners[0].rotation);
+                        spawnTimer = 0.4f;
+                        break;
+                    }
                     else if (i <= triangleSpawnMax)
+                    {
                         Instantiate(shapes[1], shapeSpawners[1].position, shapeSpawners[1].rotation);
+                        spawnTimer = 0.4f;
+                        break;
+                    }
                     else if (i <= circleSpawnMax)
+                    {
                         Instantiate(shapes[2], shapeSpawners[2].position, shapeSpawners[2].rotation);
+                        spawnTimer = 0.4f;
+                        break;
+
+                    }
                     else
+                    {
                         Instantiate(shapes[3], shapeSpawners[3].position, shapeSpawners[3].rotation);
+                        spawnTimer = 0.4f;
+                        break;
+                    }
                 }
             }
-            spawnTimer = 0.4f;
+
         }
 	}
 }

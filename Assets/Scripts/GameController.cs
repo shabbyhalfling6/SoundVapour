@@ -4,5 +4,10 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+    public AudioSource spawnerTrack;
 
+    void Start()
+    {
+        spawnerTrack.PlayDelayed(1.2f);
+    }
 }
