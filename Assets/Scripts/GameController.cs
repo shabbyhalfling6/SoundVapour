@@ -8,6 +8,6 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        spawnerTrack.PlayDelayed(1.2f);
+        spawnerTrack.PlayDelayed(2.40f);
     }
 }

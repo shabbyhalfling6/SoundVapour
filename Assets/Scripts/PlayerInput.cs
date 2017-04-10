@@ -6,13 +6,16 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour {
 
-	[SerializeField]
-    public static string selectedShape;
+	public string selectedShape;
 	public ParticleSystem laserFire;
     private float horizontalDialSelection;
     private float verticalDialSelection;
 
+    private int hitCount = 0;
 
+    private int standardScore = 20;
+    private int goodScore = 50;
+    private int perfectScore = 75;
 
 
     void Update ()
@@ -31,28 +34,47 @@ public class PlayerInput : MonoBehaviour {
 		else
 			selectedShape = null;
 
-		if (Input.GetKeyDown (KeyCode.Space)) {
-			laserFire.Play ();
-			Debug.Log ("Laser shot");
-		}
-		else 
-		{
-			laserFire.Stop ();
-		}
+        if(Input.GetButtonDown("Vapourise"))
+        { 
+            laserFire.Play();
+        }
+        else
+        {
+             laserFire.Stop();
+        }
 	}
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        collision.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
+        collision.gameObject.GetComponent<ShapeMoveController>().enabled = false;
+    }
 		
-//    void OnTriggerStay2D(Collider2D collision)
-//    {
-//        //if the shape passing the line is the selected shape and you press the vapourise button...
-//        if(selectedShape == collision.gameObject.tag)
-//        {
-//            Debug.Log("Collision detected: " + collision.tag);
-//            //and you press the vapourise button...
-//            if(Input.GetKeyDown(KeyCode.Space))
-//            {
-//                //destroy the shape
-//                Destroy(collision.gameObject);
-//            }
-//        }
-//    }
+    void OnTriggerStay2D(Collider2D collision)
+    {
+
+        //if the shape passing the line is the selected shape and you press the vapourise button...
+        if (selectedShape == collision.gameObject.tag)
+        {
+            //and you press the vapourise button...
+            if (Input.GetButtonDown("Vapourise"))
+            {
+                //destroy the shape
+                Destroy(collision.gameObject);
+
+                //increment the hitCount
+                hitCount++;
+                //NOTE: temporary score setting, replace with detecting perfects and goods
+                int score = standardScore;
+                //call the RewardScore function in the PlayerScore class to update the currentScore
+                PlayerScore.Instance.RewardScore(hitCount, score);
+            }
+        }
+    }
+
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log(Time.time);
+    }
 }

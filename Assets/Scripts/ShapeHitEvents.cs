@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ShapeHitEvents : MonoBehaviour {
-
+    /*
     private int hitCount = 0;
 
     private int standardScore = 20;
@@ -25,5 +25,5 @@ public class ShapeHitEvents : MonoBehaviour {
             //call the RewardScore function in the PlayerScore class to update the currentScore
             PlayerScore.Instance.RewardScore(hitCount, score);
         }
-	}
+	}*/
 }
