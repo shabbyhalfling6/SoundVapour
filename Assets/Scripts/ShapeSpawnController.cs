@@ -34,26 +34,26 @@ public class ShapeSpawnController : MonoBehaviour {
                     if (i <= squareSpawnMax)
                     {
                         Instantiate(shapes[0], shapeSpawners[0].position, shapeSpawners[0].rotation);
-                        spawnTimer = 0.4f;
+                        spawnTimer = 0.45f;
                         break;
                     }
                     else if (i <= triangleSpawnMax)
                     {
                         Instantiate(shapes[1], shapeSpawners[1].position, shapeSpawners[1].rotation);
-                        spawnTimer = 0.4f;
+                        spawnTimer = 0.45f;
                         break;
                     }
                     else if (i <= circleSpawnMax)
                     {
                         Instantiate(shapes[2], shapeSpawners[2].position, shapeSpawners[2].rotation);
-                        spawnTimer = 0.4f;
+                        spawnTimer = 0.45f;
                         break;
 
                     }
                     else
                     {
                         Instantiate(shapes[3], shapeSpawners[3].position, shapeSpawners[3].rotation);
-                        spawnTimer = 0.4f;
+                        spawnTimer = 0.45f;
                         break;
                     }
                 }
