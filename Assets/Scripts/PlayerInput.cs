@@ -48,6 +48,7 @@ public class PlayerInput : MonoBehaviour {
     {
         collision.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
         collision.gameObject.GetComponent<ShapeMoveController>().enabled = false;
+        collision.gameObject.tag = "Shape";
     }
 		
     void OnTriggerStay2D(Collider2D collision)
@@ -71,7 +72,6 @@ public class PlayerInput : MonoBehaviour {
             }
         }
     }
-
 
     void OnTriggerEnter2D(Collider2D collision)
     {
