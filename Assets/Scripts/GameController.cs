@@ -7,7 +7,9 @@ public class GameController : MonoBehaviour
     public AudioSource audibleTrack;
     public AudioSource spawnerTrack;
 
-    public bool gameOver = false;
+    public bool lose = false;
+    public bool win = false;
+
     private float songDelay = 2.26f;
 
     public static GameController _instance;
@@ -25,11 +27,16 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-        if(gameOver)
+        if(lose)
         {
             audibleTrack.Stop();
             spawnerTrack.Stop();
             Time.timeScale = 0.0f;
+        }
+
+        if(audibleTrack.isPlaying)
+        {
+            win = true;
         }
     }
 
@@ -46,7 +53,7 @@ public class GameController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Shape")
         {
-            GameController.Instance.gameOver = true;
+            GameController.Instance.lose = true;
         }
     }
 }

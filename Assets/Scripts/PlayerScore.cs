@@ -38,7 +38,7 @@ public class PlayerScore : MonoBehaviour
             case 0:
                 currentMultiplier = 1;
                 break;
-            case 25:
+            case 2:
                 currentMultiplier = 2;
                 break;
             case 50:

@@ -4,53 +4,52 @@ using UnityEngine;
 
 
 
-public class PlayerInput : MonoBehaviour {
+public class PlayerInput : MonoBehaviour
+{
 
-	public string selectedShape;
-	public ParticleSystem laserFire;
+    public string selectedShape;
+    public ParticleSystem laserFire;
     private float horizontalDialSelection;
     private float verticalDialSelection;
 
     private int hitCount = 0;
 
     private int standardScore = 20;
-    private int goodScore = 50;
-    private int perfectScore = 75;
 
-
-    void Update ()
+    void Update()
     {
         horizontalDialSelection = Input.GetAxis("Horizontal");
         verticalDialSelection = Input.GetAxis("Vertical");
 
         if (horizontalDialSelection < 0)
             selectedShape = "Square";
-		else if (horizontalDialSelection > 0)
+        else if (horizontalDialSelection > 0)
             selectedShape = "Circle";
-		else if (verticalDialSelection < 0)
-			selectedShape = "X";
-		else if (verticalDialSelection > 0)
-			selectedShape = "Triangle";
-		else
-			selectedShape = null;
+        else if (verticalDialSelection < 0)
+            selectedShape = "X";
+        else if (verticalDialSelection > 0)
+            selectedShape = "Triangle";
+        else
+            selectedShape = null;
 
-        if(Input.GetButtonDown("Vapourise"))
-        { 
+        if (Input.GetButtonDown("Vapourise"))
+        {
             laserFire.Play();
         }
         else
         {
-             laserFire.Stop();
+            laserFire.Stop();
         }
-	}
+    }
 
     void OnTriggerExit2D(Collider2D collision)
     {
         collision.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
         collision.gameObject.GetComponent<ShapeMoveController>().enabled = false;
         collision.gameObject.tag = "Shape";
+        PlayerScore.Instance.RewardScore(0, 0);
     }
-		
+
     void OnTriggerStay2D(Collider2D collision)
     {
 
@@ -71,10 +70,5 @@ public class PlayerInput : MonoBehaviour {
                 PlayerScore.Instance.RewardScore(hitCount, score);
             }
         }
-    }
-
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        Debug.Log(Time.time);
     }
 }
