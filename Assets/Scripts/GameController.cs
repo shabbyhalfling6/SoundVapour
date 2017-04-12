@@ -53,7 +53,7 @@ public class GameController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Shape")
         {
-            GameController.Instance.lose = true;
+            lose = true;
         }
     }
 }
