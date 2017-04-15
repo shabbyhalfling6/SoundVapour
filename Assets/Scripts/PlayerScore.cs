@@ -8,6 +8,17 @@ public class PlayerScore : MonoBehaviour
     public int currentMultiplier = 1;
     public int currentScore = 0;
 
+    public const int hitStreak1 = 10;
+    public const int hitStreak2 = 20;
+    public const int hitStreak3 = 35;
+    public const int hitStreak4 = 50;
+
+    public int multiplier1 = 1;
+    public int multiplier2 = 2;
+    public int multiplier3 = 3;
+    public int multiplier4 = 4;
+    public int multiplier5 = 5;
+
     public static PlayerScore _instance;
 
     private void Awake()
@@ -36,19 +47,19 @@ public class PlayerScore : MonoBehaviour
         switch (_hitCount)
         {
             case 0:
-                currentMultiplier = 1;
+                currentMultiplier = multiplier1;
                 break;
-            case 2:
-                currentMultiplier = 2;
+            case hitStreak1:
+                currentMultiplier = multiplier2;
                 break;
-            case 50:
-                currentMultiplier = 3;
+            case hitStreak2:
+                currentMultiplier = multiplier3;
                 break;
-            case 75:
-                currentMultiplier = 4;
+            case hitStreak3:
+                currentMultiplier = multiplier4;
                 break;
-            case 100:
-                currentMultiplier = 5;
+            case hitStreak4:
+                currentMultiplier = multiplier5;
                 break;
         }
 
