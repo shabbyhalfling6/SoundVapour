@@ -7,6 +7,7 @@ public class PlayerScore : MonoBehaviour
 {
     public int currentMultiplier = 1;
     public int currentScore = 0;
+    public int hitCount = 0;
 
     public const int hitStreak1 = 10;
     public const int hitStreak2 = 20;
@@ -32,19 +33,10 @@ public class PlayerScore : MonoBehaviour
         }
     }
 
-    //returns the instance of itself
-    public static PlayerScore Instance
-    {
-        get
-        {
-            return _instance;
-        }
-    }
 
-    public void RewardScore(int _hitCount, int _score)
+    void Update()
     {
-        //switch over the note hitCount and set the appropriate multiplier
-        switch (_hitCount)
+        switch (hitCount)
         {
             case 0:
                 currentMultiplier = multiplier1;
@@ -62,6 +54,21 @@ public class PlayerScore : MonoBehaviour
                 currentMultiplier = multiplier5;
                 break;
         }
+    }
+    //returns the instance of itself
+    public static PlayerScore Instance
+    {
+        get
+        {
+            return _instance;
+        }
+    }
+
+    public void RewardScore(int _hitCount, int _score)
+    {
+        hitCount += _hitCount;
+        //switch over the note hitCount and set the appropriate multiplier
+
 
         //update currentScore with the rewarded score and the updated multiplier
         currentScore += _score * currentMultiplier;

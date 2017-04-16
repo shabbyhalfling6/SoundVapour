@@ -11,8 +11,6 @@ public class PlayerInput : MonoBehaviour
     private float horizontalDialSelection;
     private float verticalDialSelection;
 
-    private int hitCount = 0;
-
     private int standardScore = 20;
 
     void Update()
@@ -72,32 +70,25 @@ public class PlayerInput : MonoBehaviour
     }
 
     void OnTriggerExit2D(Collider2D collision)
-    {
+    { 
         collision.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
         collision.gameObject.GetComponent<ShapeMoveController>().enabled = false;
         collision.gameObject.tag = "Shape";
-        PlayerScore.Instance.RewardScore(0, 0);
     }
 
     void OnTriggerStay2D(Collider2D collision)
     {
 
         //if the shape passing the line is the selected shape and you press the vapourise button...
-        if (selectedShape == collision.gameObject.tag)
+        if (selectedShape == collision.gameObject.tag && Input.GetButtonDown("Vapourise"))
         {
-            //and you press the vapourise button...
-            if (Input.GetButtonDown("Vapourise"))
-            {
-                //destroy the shape
-                Destroy(collision.gameObject);
+            //destroy the shape
+            Destroy(collision.gameObject);
 
-                //increment the hitCount
-                hitCount++;
-                //NOTE: temporary score setting, replace with detecting perfects and goods
-                int score = standardScore;
-                //call the RewardScore function in the PlayerScore class to update the currentScore
-                PlayerScore.Instance.RewardScore(hitCount, score);
-            }
+            //NOTE: temporary score setting, replace with detecting perfects and goods
+            int score = standardScore;
+            //call the RewardScore function in the PlayerScore class to update the currentScore
+            PlayerScore.Instance.RewardScore(1, score);
         }
     }
 }

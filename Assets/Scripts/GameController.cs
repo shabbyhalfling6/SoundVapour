@@ -49,11 +49,8 @@ public class GameController : MonoBehaviour
         }
     }
 
-    void OnTriggerStay2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Shape")
-        {
-            lose = true;
-        }
+        PlayerScore.Instance.hitCount = 0;
     }
 }
