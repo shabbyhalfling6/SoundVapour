@@ -24,6 +24,15 @@ public class SceneManagement : MonoBehaviour {
 	/*+++++++++++++++++++++++++++++++++++++
 	 * SCENE LOADING FUNCTIONS
 	 ++++++++++++++++++++++++++++++++++++++*/
+	public void LoadMenuSceneFromPaused()
+	{
+		GameObject.Find("Laser").GetComponent<PlayerInput>().pauseToggle ();
+		SceneManager.LoadScene ("Menu");
+	}
+	public void LoadMenuScene()
+	{
+		SceneManager.LoadScene ("Menu");
+	}
 	public void LoadGameScene()
 	{
 		SceneManager.LoadScene ("GameScene");

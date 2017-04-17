@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    public AudioSource audibleTrack;
-    public AudioSource spawnerTrack;
+	public AudioSource audibleTrack;
+	public AudioSource spawnerTrack;
 
     public bool lose = false;
     public bool win = false;
@@ -27,6 +27,18 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
+		//Checks Player input script to see if player paused the game and pauses the audio track if so.
+		if (PlayerInput.isPaused == true) 
+		{
+			audibleTrack.Pause();
+			spawnerTrack.Pause();
+		}
+		if (PlayerInput.isPaused == false) 
+		{
+			audibleTrack.UnPause();
+			spawnerTrack.UnPause();
+		}
+
         if(lose)
         {
             audibleTrack.Stop();
