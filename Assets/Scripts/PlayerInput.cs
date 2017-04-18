@@ -12,7 +12,7 @@ public class PlayerInput : MonoBehaviour
 	private int standardScore = 20;
 	private GameObject pauseMenu;
     private Animator anim;
-	public static bool isPaused;
+	public static bool isPaused = false;
     private bool destroyedShape = false;
 	void Start()
 	{
