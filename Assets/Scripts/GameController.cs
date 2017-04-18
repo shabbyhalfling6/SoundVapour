@@ -46,7 +46,7 @@ public class GameController : MonoBehaviour
             Time.timeScale = 0.0f;
         }
 
-        if(audibleTrack.isPlaying)
+        if(!audibleTrack.isPlaying)
         {
             win = true;
         }

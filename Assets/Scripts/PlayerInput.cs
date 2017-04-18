@@ -13,7 +13,7 @@ public class PlayerInput : MonoBehaviour
 	private GameObject pauseMenu;
     private Animator anim;
 	public static bool isPaused;
-
+    private bool destroyedShape = false;
 	void Start()
 	{
         anim = this.GetComponentInChildren<Animator>();
@@ -78,13 +78,17 @@ public class PlayerInput : MonoBehaviour
 			}
 		}
 
-        
+        if (Input.GetButtonDown("Vapourise") && !destroyedShape)
+        {
+            PlayerScore.Instance.hitCount = 0;
+        }
 
 		//If player hits the pause button, it activates the menu and pauses gameplay.
 		if (Input.GetButtonDown("Pause"))
 		{
 			pauseToggle ();
 		}
+        destroyedShape = false;
     }
 
 	public void pauseToggle()
@@ -119,6 +123,7 @@ public class PlayerInput : MonoBehaviour
             //destroy the shape
             Destroy(collider.gameObject);
 
+            destroyedShape = true;
             //NOTE: temporary score setting, replace with detecting perfects and goods
             int score = standardScore;
             //call the RewardScore function in the PlayerScore class to update the currentScore

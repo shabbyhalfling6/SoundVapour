@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShapeMoveController : MonoBehaviour {
 
-    private float shapeMoveSpeed = 3.5f;
+    private float shapeMoveSpeed = 3.0f;
 
 	void FixedUpdate ()
     {
