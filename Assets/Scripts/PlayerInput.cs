@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
+	public Animator laserFire;
 	public string selectedShape;
-    public ParticleSystem laserFire;
     private float horizontalDialSelection;
     private float verticalDialSelection;
 	private int standardScore = 20;
@@ -71,11 +71,7 @@ public class PlayerInput : MonoBehaviour
 
 			if (Input.GetButtonDown("Vapourise"))
 			{
-				laserFire.Play();
-			}
-			else
-			{
-				laserFire.Stop();
+				laserFire.Play("shoot");
 			}
 		}
 
@@ -104,26 +100,27 @@ public class PlayerInput : MonoBehaviour
 		}
 	}
 
-    void OnTriggerExit2D(Collider2D collision)
+    void OnTriggerExit2D(Collider2D other)
     { 
-        collision.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
-        collision.gameObject.GetComponent<ShapeMoveController>().enabled = false;
-        collision.gameObject.tag = "Shape";
+        other.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
+        other.gameObject.GetComponent<ShapeMoveController>().enabled = false;
+        other.gameObject.tag = "Shape";
     }
 
-    void OnTriggerStay2D(Collider2D collision)
+    void OnTriggerStay2D(Collider2D other)
     {
 
         //if the shape passing the line is the selected shape and you press the vapourise button...
-        if (selectedShape == collision.gameObject.tag && Input.GetButtonDown("Vapourise"))
+        if (selectedShape == other.gameObject.tag && Input.GetButtonDown("Vapourise"))
         {
             //destroy the shape
-            Destroy(collision.gameObject);
+            Destroy(other.gameObject);
 
             //NOTE: temporary score setting, replace with detecting perfects and goods
             int score = standardScore;
             //call the RewardScore function in the PlayerScore class to update the currentScore
             PlayerScore.Instance.RewardScore(1, score);
+			Debug.Log("Good hit");
         }
     }
 }
