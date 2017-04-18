@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour
     public bool lose = false;
     public bool win = false;
 
-    private float songDelay = 2.26f;
+    private float songDelay = 2.8f;
 
     public static GameController _instance;
 
@@ -59,10 +59,5 @@ public class GameController : MonoBehaviour
         {
             return _instance;
         }
-    }
-
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        PlayerScore.Instance.hitCount = 0;
     }
 }

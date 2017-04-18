@@ -6,24 +6,32 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-	public Animator laserFire;
 	public string selectedShape;
     private float horizontalDialSelection;
     private float verticalDialSelection;
 	private int standardScore = 20;
 	private GameObject pauseMenu;
+    private Animator anim;
 	public static bool isPaused;
 
 	void Start()
 	{
+        anim = this.GetComponentInChildren<Animator>();
 		pauseMenu = GameObject.Find ("PauseMenu");
 		pauseMenu.SetActive (false);
 	}
 
     void Update()
     {
+        anim.SetBool("Vapourise", false);
+
         horizontalDialSelection = Input.GetAxis("Horizontal");
         verticalDialSelection = Input.GetAxis("Vertical");
+
+        if(Input.GetButtonDown("Vapourise"))
+        {
+            anim.SetBool("Vapourise", true);
+        }
 
 		//Dial selection is nested under isPaused bool to prevent the dial selection from occuring in the pause menu
 		if (isPaused == false) 
@@ -68,11 +76,6 @@ public class PlayerInput : MonoBehaviour
 				UIController.BottomDialSelect.SetActive(false);
 				UIController.UpperDialSelect.SetActive(false);
 			}
-
-			if (Input.GetButtonDown("Vapourise"))
-			{
-				laserFire.Play("shoot");
-			}
 		}
 
         
@@ -107,20 +110,19 @@ public class PlayerInput : MonoBehaviour
         other.gameObject.tag = "Shape";
     }
 
-    void OnTriggerStay2D(Collider2D other)
+    void OnTriggerStay2D(Collider2D collider)
     {
 
         //if the shape passing the line is the selected shape and you press the vapourise button...
-        if (selectedShape == other.gameObject.tag && Input.GetButtonDown("Vapourise"))
+        if (collider.gameObject.tag == selectedShape && Input.GetButtonDown("Vapourise"))
         {
             //destroy the shape
-            Destroy(other.gameObject);
+            Destroy(collider.gameObject);
 
             //NOTE: temporary score setting, replace with detecting perfects and goods
             int score = standardScore;
             //call the RewardScore function in the PlayerScore class to update the currentScore
             PlayerScore.Instance.RewardScore(1, score);
-			Debug.Log("Good hit");
         }
     }
 }
