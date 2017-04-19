@@ -5,19 +5,26 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour {
 
-	public static GameObject UpperDialSelect;
-	public static GameObject BottomDialSelect;
-	public static GameObject LeftDialSelect;
-	public static GameObject RightDialSelect;
+	public GameObject UpperDialSelect;
+	public GameObject BottomDialSelect;
+	public GameObject LeftDialSelect;
+	public GameObject RightDialSelect;
 	public Text ScoreText;
 	public Text MultiplierText;
 
-	void Awake()
+    public static UIController inst;
+
+    void Awake()
+    {
+        inst = this;
+    }
+
+	void Start()
 	{
-		UpperDialSelect = GameObject.Find ("UpperSelect");
-		BottomDialSelect = GameObject.Find ("BottomSelect");
-		LeftDialSelect = GameObject.Find ("LeftSelect");
-		RightDialSelect = GameObject.Find ("RightSelect");
+		//UpperDialSelect = GameObject.Find ("UpperSelect");
+		//BottomDialSelect = GameObject.Find ("BottomSelect");
+		//LeftDialSelect = GameObject.Find ("LeftSelect");
+		//RightDialSelect = GameObject.Find ("RightSelect");
 	}
 
 	void Update()

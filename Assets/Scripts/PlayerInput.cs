@@ -34,47 +34,47 @@ public class PlayerInput : MonoBehaviour
         }
 
 		//Dial selection is nested under isPaused bool to prevent the dial selection from occuring in the pause menu
-		if (isPaused == false) 
+		if (isPaused == false && UIController.inst != null ) 
 		{
 			if (horizontalDialSelection < 0)
 			{
 				selectedShape = "Square";
-				UIController.LeftDialSelect.SetActive(true);
-				UIController.RightDialSelect.SetActive(false);
-				UIController.UpperDialSelect.SetActive(false);
-				UIController.BottomDialSelect.SetActive(false);
+				UIController.inst.LeftDialSelect.SetActive(true);
+				UIController.inst.RightDialSelect.SetActive(false);
+				UIController.inst.UpperDialSelect.SetActive(false);
+				UIController.inst.BottomDialSelect.SetActive(false);
 			}
 			else if (horizontalDialSelection > 0)
 			{
 				selectedShape = "Circle";
-				UIController.RightDialSelect.SetActive(true);
-				UIController.UpperDialSelect.SetActive(false);
-				UIController.LeftDialSelect.SetActive(false);
-				UIController.BottomDialSelect.SetActive(false);
+				UIController.inst.RightDialSelect.SetActive(true);
+				UIController.inst.UpperDialSelect.SetActive(false);
+				UIController.inst.LeftDialSelect.SetActive(false);
+				UIController.inst.BottomDialSelect.SetActive(false);
 			}
 			else if (verticalDialSelection < 0)
 			{
 				selectedShape = "X";
-				UIController.BottomDialSelect.SetActive(true);
-				UIController.UpperDialSelect.SetActive(false);
-				UIController.LeftDialSelect.SetActive(false);
-				UIController.RightDialSelect.SetActive(false);
+				UIController.inst.BottomDialSelect.SetActive(true);
+				UIController.inst.UpperDialSelect.SetActive(false);
+				UIController.inst.LeftDialSelect.SetActive(false);
+				UIController.inst.RightDialSelect.SetActive(false);
 			}
 			else if (verticalDialSelection > 0)
 			{
 				selectedShape = "Triangle";
-				UIController.UpperDialSelect.SetActive(true);
-				UIController.LeftDialSelect.SetActive(false);
-				UIController.RightDialSelect.SetActive(false);
-				UIController.BottomDialSelect.SetActive(false);
+				UIController.inst.UpperDialSelect.SetActive(true);
+				UIController.inst.LeftDialSelect.SetActive(false);
+				UIController.inst.RightDialSelect.SetActive(false);
+				UIController.inst.BottomDialSelect.SetActive(false);
 			}
 			else
 			{
-				selectedShape = null;
-				UIController.LeftDialSelect.SetActive(false);
-				UIController.RightDialSelect.SetActive(false);
-				UIController.BottomDialSelect.SetActive(false);
-				UIController.UpperDialSelect.SetActive(false);
+				selectedShape = string.Empty;
+				UIController.inst.LeftDialSelect.SetActive(false);
+				UIController.inst.RightDialSelect.SetActive(false);
+				UIController.inst.BottomDialSelect.SetActive(false);
+				UIController.inst.UpperDialSelect.SetActive(false);
 			}
 		}
 
@@ -116,9 +116,13 @@ public class PlayerInput : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D collider)
     {
-
+        if(Input.GetAxisRaw("Vapourise") == 0)
+        {
+            return;
+        }
+        
         //if the shape passing the line is the selected shape and you press the vapourise button...
-        if (collider.gameObject.tag == selectedShape && Input.GetButtonDown("Vapourise"))
+        if (collider.gameObject.tag == selectedShape)
         {
             //destroy the shape
             Destroy(collider.gameObject);
