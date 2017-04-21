@@ -14,6 +14,11 @@ public class PlayerInput : MonoBehaviour
     private Animator anim;
 	public static bool isPaused = false;
     private bool destroyedShape = false;
+
+    public BoxCollider2D box;
+
+    public float lastFrameButtonState = 0.0f;
+
 	void Start()
 	{
         anim = this.GetComponentInChildren<Animator>();
@@ -25,69 +30,102 @@ public class PlayerInput : MonoBehaviour
     {
         anim.SetBool("Vapourise", false);
 
-        horizontalDialSelection = Input.GetAxis("Horizontal");
-        verticalDialSelection = Input.GetAxis("Vertical");
+        horizontalDialSelection = Input.GetAxisRaw("Horizontal");
+        verticalDialSelection = Input.GetAxisRaw("Vertical");
 
-        if(Input.GetButtonDown("Vapourise"))
+        if (!Vapourise())
         {
             anim.SetBool("Vapourise", true);
         }
 
-		//Dial selection is nested under isPaused bool to prevent the dial selection from occuring in the pause menu
-		if (isPaused == false && UIController.inst != null ) 
-		{
-			if (horizontalDialSelection < 0)
-			{
-				selectedShape = "Square";
-				UIController.inst.LeftDialSelect.SetActive(true);
-				UIController.inst.RightDialSelect.SetActive(false);
-				UIController.inst.UpperDialSelect.SetActive(false);
-				UIController.inst.BottomDialSelect.SetActive(false);
-			}
-			else if (horizontalDialSelection > 0)
-			{
-				selectedShape = "Circle";
-				UIController.inst.RightDialSelect.SetActive(true);
-				UIController.inst.UpperDialSelect.SetActive(false);
-				UIController.inst.LeftDialSelect.SetActive(false);
-				UIController.inst.BottomDialSelect.SetActive(false);
-			}
-			else if (verticalDialSelection < 0)
-			{
-				selectedShape = "X";
-				UIController.inst.BottomDialSelect.SetActive(true);
-				UIController.inst.UpperDialSelect.SetActive(false);
-				UIController.inst.LeftDialSelect.SetActive(false);
-				UIController.inst.RightDialSelect.SetActive(false);
-			}
-			else if (verticalDialSelection > 0)
-			{
-				selectedShape = "Triangle";
-				UIController.inst.UpperDialSelect.SetActive(true);
-				UIController.inst.LeftDialSelect.SetActive(false);
-				UIController.inst.RightDialSelect.SetActive(false);
-				UIController.inst.BottomDialSelect.SetActive(false);
-			}
-			else
-			{
-				selectedShape = string.Empty;
-				UIController.inst.LeftDialSelect.SetActive(false);
-				UIController.inst.RightDialSelect.SetActive(false);
-				UIController.inst.BottomDialSelect.SetActive(false);
-				UIController.inst.UpperDialSelect.SetActive(false);
-			}
-		}
+        //Dial selection is nested under isPaused bool to prevent the dial selection from occuring in the pause menu
+        if (isPaused == false && UIController.inst != null)
+        {
+            if (horizontalDialSelection < 0)
+            {
+                selectedShape = "Square";
+                UIController.inst.LeftDialSelect.SetActive(true);
+                UIController.inst.RightDialSelect.SetActive(false);
+                UIController.inst.UpperDialSelect.SetActive(false);
+                UIController.inst.BottomDialSelect.SetActive(false);
+            }
+            else if (horizontalDialSelection > 0)
+            {
+                selectedShape = "Circle";
+                UIController.inst.RightDialSelect.SetActive(true);
+                UIController.inst.UpperDialSelect.SetActive(false);
+                UIController.inst.LeftDialSelect.SetActive(false);
+                UIController.inst.BottomDialSelect.SetActive(false);
+            }
+            else if (verticalDialSelection < 0)
+            {
+                selectedShape = "X";
+                UIController.inst.BottomDialSelect.SetActive(true);
+                UIController.inst.UpperDialSelect.SetActive(false);
+                UIController.inst.LeftDialSelect.SetActive(false);
+                UIController.inst.RightDialSelect.SetActive(false);
+            }
+            else if (verticalDialSelection > 0)
+            {
+                selectedShape = "Triangle";
+                UIController.inst.UpperDialSelect.SetActive(true);
+                UIController.inst.LeftDialSelect.SetActive(false);
+                UIController.inst.RightDialSelect.SetActive(false);
+                UIController.inst.BottomDialSelect.SetActive(false);
+            }
+            else
+            {
+                selectedShape = string.Empty;
+                UIController.inst.LeftDialSelect.SetActive(false);
+                UIController.inst.RightDialSelect.SetActive(false);
+                UIController.inst.BottomDialSelect.SetActive(false);
+                UIController.inst.UpperDialSelect.SetActive(false);
+            }
 
-        if (Input.GetButtonDown("Vapourise") && !destroyedShape)
+        }
+
+        //If player hits the pause button, it activates the menu and pauses gameplay.
+        if (Input.GetButtonDown("Pause"))
+        {
+            pauseToggle();
+        }
+
+        if(Vapourise())
+        {
+            var res = Physics2D.OverlapBoxAll(box.offset + (Vector2)transform.position, box.size, 0);
+
+            for (int i = 0; i < res.Length; i++)
+            {
+                if(res[i] != box)
+                {
+                    var collider = res[i];
+
+                    //if the shape passing the line is the selected shape...
+                    if (collider.gameObject.tag == selectedShape)
+                    {
+                        //destroy the shape
+                        Destroy(collider.gameObject);
+
+                        destroyedShape = true;
+
+                        //NOTE: temporary score setting, replace with detecting perfects and goods
+                        int score = standardScore;
+                        //call the RewardScore function in the PlayerScore class to update the currentScore
+                        PlayerScore.Instance.RewardScore(1, score);
+                    }
+                }
+            }
+        }
+
+        if (Vapourise() && !destroyedShape)
         {
             PlayerScore.Instance.hitCount = 0;
         }
+    }
 
-		//If player hits the pause button, it activates the menu and pauses gameplay.
-		if (Input.GetButtonDown("Pause"))
-		{
-			pauseToggle ();
-		}
+    private void LateUpdate()
+    {
+        lastFrameButtonState = Input.GetAxisRaw("Vapourise");
         destroyedShape = false;
     }
 
@@ -114,24 +152,8 @@ public class PlayerInput : MonoBehaviour
         other.gameObject.tag = "Shape";
     }
 
-    void OnTriggerStay2D(Collider2D collider)
+   bool Vapourise ()
     {
-        if(Input.GetAxisRaw("Vapourise") == 0)
-        {
-            return;
-        }
-        
-        //if the shape passing the line is the selected shape and you press the vapourise button...
-        if (collider.gameObject.tag == selectedShape)
-        {
-            //destroy the shape
-            Destroy(collider.gameObject);
-
-            destroyedShape = true;
-            //NOTE: temporary score setting, replace with detecting perfects and goods
-            int score = standardScore;
-            //call the RewardScore function in the PlayerScore class to update the currentScore
-            PlayerScore.Instance.RewardScore(1, score);
-        }
+        return (lastFrameButtonState == 0 && Input.GetAxisRaw("Vapourise") == 1);
     }
 }

@@ -9,10 +9,15 @@ public class GameController : MonoBehaviour
 
     public bool lose = false;
     public bool win = false;
+    public bool triggered = false;
 
-    private float songDelay = 2.2f; //Was 2.8f
+    private float songDelay = 2.2f;
+    public float timer = 0.5f;
+    private float timerInitial = 0.5f;
 
     public static GameController _instance;
+
+    public BoxCollider2D box;
 
     void Awake()
     {
@@ -46,9 +51,18 @@ public class GameController : MonoBehaviour
             Time.timeScale = 0.0f;
         }
 
-        if(!audibleTrack.isPlaying)
+        if(!audibleTrack.isPlaying && !lose)
         {
             win = true;
+        }
+
+        if(triggered)
+        {
+            timer -= Time.deltaTime;
+        }
+        else if(!triggered)
+        {
+            timer = timerInitial;
         }
     }
 
@@ -59,5 +73,19 @@ public class GameController : MonoBehaviour
         {
             return _instance;
         }
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        triggered = true;
+        if(collision.gameObject.CompareTag("Shape") && timer <= 0)
+        {
+            lose = true;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        triggered = false;
     }
 }
