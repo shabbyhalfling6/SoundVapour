@@ -30,6 +30,11 @@ public class GameController : MonoBehaviour
         audibleTrack.PlayDelayed(songDelay);
     }
 
+	void Start()
+	{
+		audibleTrack.volume = OptionsMenu.customMusicVol;
+	}
+
     void Update()
     {
 		//Checks Player input script to see if player paused the game and pauses the audio track if so.

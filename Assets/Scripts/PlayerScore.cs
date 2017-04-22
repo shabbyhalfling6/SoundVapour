@@ -7,6 +7,9 @@ public class PlayerScore : MonoBehaviour
 {
     public int currentMultiplier = 1;
     public int currentScore = 0;
+	public static int HighScore1;
+	public static int HighScore2;
+	public static int HighScore3;
     public int hitCount = 0;
 
     public const int hitStreak1 = 10;
@@ -54,6 +57,22 @@ public class PlayerScore : MonoBehaviour
                 currentMultiplier = multiplier5;
                 break;
         }
+
+		if (SceneManagement.currentSceneIndex == 4 && currentScore > HighScore1) 
+		{
+			HighScore1 = currentScore;
+			PlayerPrefs.SetInt ("TopScore1", HighScore1);
+		}
+		if (SceneManagement.currentSceneIndex == 5 && currentScore > HighScore2) 
+		{
+			HighScore2 = currentScore;
+			PlayerPrefs.SetInt ("TopScore2", HighScore2);
+		}
+		if (SceneManagement.currentSceneIndex == 6 && currentScore > HighScore3) 
+		{
+			HighScore3 = currentScore;
+			PlayerPrefs.SetInt ("TopScore3", HighScore3);
+		}
     }
     //returns the instance of itself
     public static PlayerScore Instance

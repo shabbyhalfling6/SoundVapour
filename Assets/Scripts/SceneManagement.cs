@@ -6,16 +6,16 @@ using UnityEngine.SceneManagement;
 
 public class SceneManagement : MonoBehaviour {
 
-	private string currentScene;
+	public static int currentSceneIndex;
 
 	// Use this for initialization
 	void Start () 
 	{
-		currentScene = SceneManager.GetActiveScene ().name;
+		currentSceneIndex = SceneManager.GetActiveScene ().buildIndex;
 	/*+++++++++++++++++++++++++++++++++++++
 	 * ADDS THE UI SCENE TO OVERLAY GAME
 	 ++++++++++++++++++++++++++++++++++++++*/
-		if (SceneManager.GetSceneByName ("GameScene").name == currentScene)
+		if (currentSceneIndex > 3)
 		{
 			SceneManager.LoadScene("UI", LoadSceneMode.Additive);
 		}
