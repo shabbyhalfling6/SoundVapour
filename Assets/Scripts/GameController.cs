@@ -6,18 +6,18 @@ public class GameController : MonoBehaviour
 {
 	public AudioSource audibleTrack;
 	public AudioSource spawnerTrack;
-
-    public bool lose = false;
+	public bool lose = false;
     public bool win = false;
     public bool triggered = false;
-
+	public float songDuration;
+	public float remainingTime;
     private float songDelay = 2.2f;
-    public float timer = 0.5f;
-    private float timerInitial = 0.5f;
 
     public static GameController _instance;
 
     public BoxCollider2D box;
+
+	private GameObject endScreen;
 
     void Awake()
     {
@@ -33,6 +33,10 @@ public class GameController : MonoBehaviour
 	void Start()
 	{
 		audibleTrack.volume = OptionsMenu.customMusicVol;
+		songDuration = audibleTrack.clip.length;
+		remainingTime = songDuration;
+		endScreen = GameObject.Find ("GameEnd");
+		endScreen.SetActive (false);
 	}
 
     void Update()
@@ -47,6 +51,7 @@ public class GameController : MonoBehaviour
 		{
 			audibleTrack.UnPause();
 			spawnerTrack.UnPause();
+			remainingTime -= Time.deltaTime;
 		}
 
         if(lose)
@@ -54,21 +59,25 @@ public class GameController : MonoBehaviour
             audibleTrack.Stop();
             spawnerTrack.Stop();
             Time.timeScale = 0.0f;
+			endScreen.SetActive (true);
         }
 
-        if(!audibleTrack.isPlaying && !lose)
-        {
-            win = true;
-        }
+		if (remainingTime < 0f && !lose) 
+		{
+			win = true;
+			Time.timeScale = 0.0f;
+			endScreen.SetActive (true);
+		} 
+		else 
+		{
+			win = false;
+		}
 
-        if(triggered)
-        {
-            timer -= Time.deltaTime;
-        }
-        else if(!triggered)
-        {
-            timer = timerInitial;
-        }
+		//prevents user being able to bring up pause menu when the game is over
+		if (win == true || lose == true) 
+		{
+			PlayerInput.isPaused = false;
+		}
     }
 
     //returns the instance of itself
@@ -78,19 +87,5 @@ public class GameController : MonoBehaviour
         {
             return _instance;
         }
-    }
-
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        triggered = true;
-        if(collision.gameObject.CompareTag("Shape") && timer <= 0)
-        {
-            lose = true;
-        }
-    }
-
-    void OnTriggerExit2D(Collider2D collision)
-    {
-        triggered = false;
     }
 }

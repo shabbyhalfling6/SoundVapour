@@ -45,6 +45,11 @@ public class SceneManagement : MonoBehaviour {
 	{
 		SceneManager.LoadScene ("Credits");
 	}
+	public void RetryLevel ()
+	{
+		SceneManager.LoadScene (currentSceneIndex);
+		Time.timeScale = 1;
+	}
 	public void QuitGame()
 	{
 		Application.Quit();
