@@ -8,7 +8,6 @@ public class GameController : MonoBehaviour
 	public AudioSource spawnerTrack;
 	public bool lose = false;
     public bool win = false;
-    public bool triggered = false;
 	public float songDuration;
 	public float remainingTime;
     private float songDelay = 2.2f;

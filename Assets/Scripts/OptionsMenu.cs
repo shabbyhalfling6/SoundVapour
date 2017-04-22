@@ -44,22 +44,19 @@ public class OptionsMenu : MonoBehaviour {
 		{
 			if(ResetLevelScore.GetComponentInChildren<Text>().text == "Level 1")
 			{
-				PlayerScore.HighScore1 = 0;
-				PlayerPrefs.SetInt ("TopScore1", PlayerScore.HighScore1);
+				PlayerPrefs.SetInt ("TopScore1", 0);
 				ResetConfirm.gameObject.SetActive (false);
 				musicSlider.Select ();
 			}
 			if(ResetLevelScore.GetComponentInChildren<Text>().text == "Level 2")
 			{
-				PlayerScore.HighScore2 = 0;
-				PlayerPrefs.SetInt ("TopScore2", PlayerScore.HighScore2);
+				PlayerPrefs.SetInt ("TopScore2", 0);
 				ResetConfirm.gameObject.SetActive (false);
 				musicSlider.Select ();
 			}
 			if(ResetLevelScore.GetComponentInChildren<Text>().text == "Level 3")
 			{
-				PlayerScore.HighScore3 = 0;
-				PlayerPrefs.SetInt ("TopScore3", PlayerScore.HighScore3);
+				PlayerPrefs.SetInt ("TopScore3", 0);
 				ResetConfirm.gameObject.SetActive (false);
 				musicSlider.Select ();
 			}

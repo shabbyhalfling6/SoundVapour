@@ -12,7 +12,7 @@ public class PlayerInput : MonoBehaviour
 	private int standardScore = 20;
 	private GameObject pauseMenu;
     private Animator anim;
-	public static bool isPaused = false;
+	public static bool isPaused;
     private bool destroyedShape = false;
 
     public BoxCollider2D box;
