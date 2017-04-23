@@ -33,7 +33,7 @@ public class PlayerInput : MonoBehaviour
         horizontalDialSelection = Input.GetAxisRaw("Horizontal");
         verticalDialSelection = Input.GetAxisRaw("Vertical");
 
-        if (!Vapourise())
+        if (Vapourise())
         {
             anim.SetBool("Vapourise", true);
         }
