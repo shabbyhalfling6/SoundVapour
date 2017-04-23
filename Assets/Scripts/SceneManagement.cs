@@ -45,6 +45,10 @@ public class SceneManagement : MonoBehaviour {
 	{
 		SceneManager.LoadScene ("GameScene 1");
 	}
+	public void LoadCreoScene()
+	{
+		SceneManager.LoadScene ("GameScene 2");
+	}
 	public void LoadOptionsScene()
 	{
 		SceneManager.LoadScene ("Options");
