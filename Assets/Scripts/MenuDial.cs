@@ -63,7 +63,7 @@ public class MenuDial : SceneManagement {
 
 		if(selectedOption == "Play" && Input.GetButtonUp("Vapourise"))
 		{
-			LoadGameScene();
+			LoadSongSelectScene();
 		}
 		if(selectedOption == "Options" && Input.GetButtonUp("Vapourise"))
 		{

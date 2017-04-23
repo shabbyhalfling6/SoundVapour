@@ -15,7 +15,7 @@ public class SceneManagement : MonoBehaviour {
 	/*+++++++++++++++++++++++++++++++++++++
 	 * ADDS THE UI SCENE TO OVERLAY GAME
 	 ++++++++++++++++++++++++++++++++++++++*/
-		if (currentSceneIndex > 3)
+		if (currentSceneIndex > 4)
 		{
 			SceneManager.LoadScene("UI", LoadSceneMode.Additive);
 		}
@@ -33,9 +33,17 @@ public class SceneManagement : MonoBehaviour {
 	{
 		SceneManager.LoadScene ("Menu");
 	}
-	public void LoadGameScene()
+	public void LoadSongSelectScene()
+	{
+		SceneManager.LoadScene ("SongSelect");
+	}
+	public void LoadBlipStreamScene()
 	{
 		SceneManager.LoadScene ("GameScene");
+	}
+	public void LoadPartySongScene()
+	{
+		SceneManager.LoadScene ("GameScene 1");
 	}
 	public void LoadOptionsScene()
 	{

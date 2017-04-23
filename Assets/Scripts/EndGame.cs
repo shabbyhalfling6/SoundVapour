@@ -19,15 +19,15 @@ public class EndGame : SceneManagement {
 	void Update () 
 	{
 		runScoreText.text = PlayerScore.Instance.currentScore.ToString();
-		if(SceneManagement.currentSceneIndex == 4)
+		if(SceneManagement.currentSceneIndex == 5)
 		{
 			topScoreText.text = PlayerPrefs.GetInt ("TopScore1").ToString ();
 		}
-		if(SceneManagement.currentSceneIndex == 5)
+		if(SceneManagement.currentSceneIndex == 6)
 		{
 			topScoreText.text = PlayerPrefs.GetInt ("TopScore2").ToString ();
 		}
-		if(SceneManagement.currentSceneIndex == 6)
+		if(SceneManagement.currentSceneIndex == 7)
 		{
 			topScoreText.text = PlayerPrefs.GetInt ("TopScore3").ToString ();
 		}
