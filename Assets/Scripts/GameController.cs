@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour
     public bool win = false;
 	public float songDuration;
 	public float remainingTime;
-    private float songDelay = 2.2f;
+    private float songDelay = 2.35f;
 
     public static GameController _instance;
 

@@ -37,6 +37,8 @@ public class ShapeSpawnController : MonoBehaviour {
     public float xSpawnRate = 0.45f;
 
     public AudioSource sampleTrack;
+    public float shapeSpawnTimer = 0.0f;
+    public float shapeSpawnTimerInitial = 0.45f;
 
     float[] spectrum = new float[512];
     float[] spawnTimers;
@@ -53,6 +55,8 @@ public class ShapeSpawnController : MonoBehaviour {
             spawnTimers[i] -= Time.deltaTime;
         }
 
+        shapeSpawnTimer -= Time.deltaTime;
+
         //populate the spectrum array with the window date from current audio source
         sampleTrack.GetSpectrumData(spectrum, 0, FFTWindow.Rectangular);
 
@@ -67,7 +71,7 @@ public class ShapeSpawnController : MonoBehaviour {
     void SpawnShapes(int shapeType, float spawnRate, int shapeSpawnMin, int shapeSpawnMax, float spawnThreshold)
     {
         //checks if the type of shape is ready to spawn yet
-        if (spawnTimers[shapeType] <= 0)
+        if (spawnTimers[shapeType] <= 0 && shapeSpawnTimer <= 0)
         {
             //loop through the audio source data in the array between the min and max the shape spawns for
             for (int i = shapeSpawnMin; i < shapeSpawnMax; i++)
@@ -79,6 +83,7 @@ public class ShapeSpawnController : MonoBehaviour {
                     Instantiate(shapes[shapeType], shapeSpawners[shapeType].position, shapeSpawners[shapeType].rotation);
                     //set this shape types spawn timer back
                     spawnTimers[shapeType] = spawnRate;
+                    shapeSpawnTimer = shapeSpawnTimerInitial;
                     //break the loop
                     break;
                 }
