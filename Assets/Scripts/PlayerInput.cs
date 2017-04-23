@@ -85,7 +85,7 @@ public class PlayerInput : MonoBehaviour
         }
 
         //If player hits the pause button, it activates the menu and pauses gameplay.
-        if (Input.GetButtonDown("Pause"))
+		if (Input.GetButtonDown("Pause") && (GameController.Instance.win == false && GameController.Instance.lose == false))
         {
             pauseToggle();
         }

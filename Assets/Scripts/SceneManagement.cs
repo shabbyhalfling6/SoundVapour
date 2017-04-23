@@ -59,10 +59,7 @@ public class SceneManagement : MonoBehaviour {
 	}
 	public void RetryLevel ()
 	{
-		SceneManager.LoadScene (SceneManager.GetActiveScene().name);
-
-		Debug.Log(PlayerInput.isPaused.ToString());
-	
+		SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
 	}
 	public void QuitGame()
 	{

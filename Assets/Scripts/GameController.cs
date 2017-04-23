@@ -1,16 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GameController : MonoBehaviour
 {
 	public AudioSource audibleTrack;
 	public AudioSource spawnerTrack;
+	public float defaultMusicVolume = 1f;
 	public bool lose = false;
     public bool win = false;
 	public float songDuration;
 	public float remainingTime;
     private float songDelay = 2.35f;
+	public GameObject EndFirstSelectedButton;
 
     public static GameController _instance;
 
@@ -31,7 +34,16 @@ public class GameController : MonoBehaviour
 
 	void Start()
 	{
-		audibleTrack.volume = OptionsMenu.customMusicVol;
+		if (OptionsMenu.customOptionsLoaded == true) 
+		{
+			audibleTrack.volume = OptionsMenu.customMusicVol;
+		} 
+		else 
+		{
+			audibleTrack.volume = defaultMusicVolume;
+		}
+
+		Time.timeScale = 1f;
 		songDuration = audibleTrack.clip.length;
 		remainingTime = songDuration;
 		endScreen = GameObject.Find ("GameEnd");
@@ -57,15 +69,17 @@ public class GameController : MonoBehaviour
         {
             audibleTrack.Stop();
             spawnerTrack.Stop();
-            Time.timeScale = 0.0f;
-			endScreen.SetActive (true);
+            endScreen.SetActive (true);
+			SongEndButtonSelection ();
+			Time.timeScale = 0.0f;
         }
 
 		if (remainingTime < 0f && !lose) 
 		{
 			win = true;
-			Time.timeScale = 0.0f;
 			endScreen.SetActive (true);
+			SongEndButtonSelection ();
+			Time.timeScale = 0.0f;
 		} 
 		else 
 		{
@@ -75,7 +89,7 @@ public class GameController : MonoBehaviour
 		//prevents user being able to bring up pause menu when the game is over
 		if (win == true || lose == true) 
 		{
-			PlayerInput.isPaused = false;
+			
 		}
     }
 
@@ -87,4 +101,10 @@ public class GameController : MonoBehaviour
             return _instance;
         }
     }
+	public void SongEndButtonSelection()
+	{
+		EventSystem.current.firstSelectedGameObject = null;
+		EndFirstSelectedButton = GameObject.Find ("Retry");
+		EventSystem.current.firstSelectedGameObject = EndFirstSelectedButton;
+	}
 }

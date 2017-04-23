@@ -10,15 +10,15 @@ public class SongSelectScroller : SceneManagement {
 	public float scrollIncrement;
 	public float scrollDelay = 0.1f;
 	public Text song1TopScore;
-	public Text song1Duration;
+	public Text song1Difficulty;
 	public Text song2TopScore;
-	public Text song2Duration;
+	public Text song2Difficulty;
 	public Text song3TopScore;
-	public Text song3Duration;
+	public Text song3Difficulty;
 	public Text song4TopScore;
-	public Text song4Duration;
+	public Text song4Difficulty;
 	public Text song5TopScore;
-	public Text song5Duration;
+	public Text song5Difficulty;
 
 	// Use this for initialization
 	void Start () {
@@ -29,11 +29,11 @@ public class SongSelectScroller : SceneManagement {
 		song3TopScore.text = "Top Score: " + PlayerPrefs.GetInt ("TopScore3").ToString ();
 		song4TopScore.text = "Top Score: " + PlayerPrefs.GetInt ("TopScore4").ToString ();
 		song5TopScore.text = "Top Score: " + PlayerPrefs.GetInt ("TopScore5").ToString ();
-		song1Duration.text = "Song Duration: ";
-		song2Duration.text = "Song Duration: ";
-		song3Duration.text = "Song Duration: ";
-		song4Duration.text = "Song Duration: ";
-		song5Duration.text = "Song Duration: ";
+		song1Difficulty.text = "Song Difficulty: ooooo";
+		song2Difficulty.text = "Song Difficulty: oo";
+		song3Difficulty.text = "Song Difficulty: oooo";
+		song4Difficulty.text = "Song Difficulty: -";
+		song5Difficulty.text = "Song Difficulty: -";
 	}
 	
 	// Update is called once per frame

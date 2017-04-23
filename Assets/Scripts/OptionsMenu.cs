@@ -9,6 +9,7 @@ public class OptionsMenu : MonoBehaviour {
 	public Slider sfxSlider;
 	public static float customMusicVol;
 	public static float customSFXVol;
+	public static bool customOptionsLoaded;
 	public Dropdown ResetLevelScore;
 	public Button ResetConfirm;
 	public Text CurrentHighScore;
@@ -17,6 +18,7 @@ public class OptionsMenu : MonoBehaviour {
 	void Start () 
 	{
 		ResetConfirm.gameObject.SetActive (false);
+		customOptionsLoaded = true;
 	}
 	
 	// Update is called once per frame
