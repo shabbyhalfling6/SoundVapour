@@ -55,17 +55,17 @@ public class PlayerScore : MonoBehaviour
                 break;
         }
 
-		if (SceneManagement.currentSceneIndex == 4 && currentScore > PlayerPrefs.GetInt("TopScore1")) 
+		if (SceneManagement.currentSceneIndex == 5 && currentScore > PlayerPrefs.GetInt("TopScore1")) 
 		{
 			PlayerPrefs.SetInt ("TopScore1", currentScore);
 			Debug.Log ("Top score changed");
 		}
-		if (SceneManagement.currentSceneIndex == 5 && currentScore > PlayerPrefs.GetInt("TopScore2")) 
+		if (SceneManagement.currentSceneIndex == 6 && currentScore > PlayerPrefs.GetInt("TopScore2")) 
 		{
 			PlayerPrefs.SetInt ("TopScore2", currentScore);
 			Debug.Log ("Top score changed");
 		}
-		if (SceneManagement.currentSceneIndex == 6 && currentScore > PlayerPrefs.GetInt("TopScore3")) 
+		if (SceneManagement.currentSceneIndex == 7 && currentScore > PlayerPrefs.GetInt("TopScore3")) 
 		{
 			PlayerPrefs.SetInt ("TopScore3", currentScore);
 			Debug.Log ("Top score changed");
