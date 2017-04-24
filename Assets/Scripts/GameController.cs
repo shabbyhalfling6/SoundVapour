@@ -21,6 +21,8 @@ public class GameController : MonoBehaviour
 
 	private GameObject endScreen;
 
+	bool hasGameEnded = false;
+
     void Awake()
     {
         if (_instance != null)
@@ -34,6 +36,8 @@ public class GameController : MonoBehaviour
 
 	void Start()
 	{
+		hasGameEnded = false;
+
 		if (OptionsMenu.customOptionsLoaded == true) 
 		{
 			audibleTrack.volume = OptionsMenu.customMusicVol;
@@ -65,13 +69,14 @@ public class GameController : MonoBehaviour
 			remainingTime -= Time.deltaTime;
 		}
 
-        if(lose)
+		if(lose && !hasGameEnded)
         {
             audibleTrack.Stop();
             spawnerTrack.Stop();
             endScreen.SetActive (true);
 			SongEndButtonSelection ();
 			Time.timeScale = 0.0f;
+			hasGameEnded = true;
         }
 
 		if (remainingTime < 0f && !lose) 
@@ -84,12 +89,6 @@ public class GameController : MonoBehaviour
 		else 
 		{
 			win = false;
-		}
-
-		//prevents user being able to bring up pause menu when the game is over
-		if (win == true || lose == true) 
-		{
-			
 		}
     }
 
@@ -105,6 +104,6 @@ public class GameController : MonoBehaviour
 	{
 		EventSystem.current.firstSelectedGameObject = null;
 		EndFirstSelectedButton = GameObject.Find ("Retry");
-		EventSystem.current.firstSelectedGameObject = EndFirstSelectedButton;
+		EventSystem.current.SetSelectedGameObject(EndFirstSelectedButton);
 	}
 }

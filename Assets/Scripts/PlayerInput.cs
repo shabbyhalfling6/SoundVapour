@@ -14,6 +14,7 @@ public class PlayerInput : MonoBehaviour
     private Animator anim;
 	public static bool isPaused;
     private bool destroyedShape = false;
+	public Vector2 inputVector;
 
     public BoxCollider2D box;
 
@@ -33,7 +34,15 @@ public class PlayerInput : MonoBehaviour
         horizontalDialSelection = Input.GetAxisRaw("Horizontal");
         verticalDialSelection = Input.GetAxisRaw("Vertical");
 
-        if (Vapourise())
+		inputVector.x = horizontalDialSelection;
+		inputVector.y = verticalDialSelection;
+		inputVector.Normalize ();
+
+		float vectorMagnitude = 0.7f;
+
+		Debug.Log (inputVector);
+
+		if (Vapourise())
         {
             anim.SetBool("Vapourise", true);
         }
@@ -41,7 +50,7 @@ public class PlayerInput : MonoBehaviour
         //Dial selection is nested under isPaused bool to prevent the dial selection from occuring in the pause menu
         if (isPaused == false && UIController.inst != null)
         {
-            if (horizontalDialSelection < 0)
+			if ((inputVector.x <= -vectorMagnitude))
             {
                 selectedShape = "Square";
                 UIController.inst.LeftDialSelect.SetActive(true);
@@ -49,7 +58,7 @@ public class PlayerInput : MonoBehaviour
                 UIController.inst.UpperDialSelect.SetActive(false);
                 UIController.inst.BottomDialSelect.SetActive(false);
             }
-            else if (horizontalDialSelection > 0)
+			else if ((inputVector.x >= vectorMagnitude))
             {
                 selectedShape = "Circle";
                 UIController.inst.RightDialSelect.SetActive(true);
@@ -57,7 +66,7 @@ public class PlayerInput : MonoBehaviour
                 UIController.inst.LeftDialSelect.SetActive(false);
                 UIController.inst.BottomDialSelect.SetActive(false);
             }
-            else if (verticalDialSelection < 0)
+			else if ((inputVector.y <= -vectorMagnitude))
             {
                 selectedShape = "X";
                 UIController.inst.BottomDialSelect.SetActive(true);
@@ -65,7 +74,7 @@ public class PlayerInput : MonoBehaviour
                 UIController.inst.LeftDialSelect.SetActive(false);
                 UIController.inst.RightDialSelect.SetActive(false);
             }
-            else if (verticalDialSelection > 0)
+			else if ((inputVector.y >= vectorMagnitude))
             {
                 selectedShape = "Triangle";
                 UIController.inst.UpperDialSelect.SetActive(true);

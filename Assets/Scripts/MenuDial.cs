@@ -14,6 +14,7 @@ public class MenuDial : SceneManagement {
 	private float verticalDialSelection;
 	private Color selectedColor = Color.white;
 	private Color deselectedColor = Color.clear;
+	public Vector2 inputVector;
 
 	void Awake()
 	{
@@ -40,19 +41,25 @@ public class MenuDial : SceneManagement {
 		horizontalDialSelection = Input.GetAxis("Horizontal");
 		verticalDialSelection = Input.GetAxis("Vertical");
 
-		if (horizontalDialSelection < 0)
+		inputVector.x = horizontalDialSelection;
+		inputVector.y = verticalDialSelection;
+		inputVector.Normalize ();
+
+		float vectorMagnitude = 0.7f;
+
+		if ((inputVector.x <= -vectorMagnitude))
 		{
 			SelectOptions ();
 		}
-		else if (horizontalDialSelection > 0)
+		else if ((inputVector.x >= vectorMagnitude))
 		{
 			SelectCredits ();
 		}
-		else if (verticalDialSelection < 0)
+		else if ((inputVector.y <= -vectorMagnitude))
 		{
 			SelectQuit ();
 		}
-		else if (verticalDialSelection > 0)
+		else if ((inputVector.y >= vectorMagnitude))
 		{
 			SelectPlay ();
 		}
