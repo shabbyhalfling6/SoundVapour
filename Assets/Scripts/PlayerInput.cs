@@ -42,8 +42,6 @@ public class PlayerInput : MonoBehaviour
 
 		float vectorMagnitude = 0.7f;
 
-		Debug.Log (inputVector);
-
 		if (Vapourise())
         {
             anim.SetBool("Vapourise", true);
