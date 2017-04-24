@@ -18,6 +18,8 @@ public class PlayerInput : MonoBehaviour
 
     public BoxCollider2D box;
 
+	public GameObject Vapour;
+
     public float lastFrameButtonState = 0.0f;
 
 	void Start()
@@ -113,6 +115,9 @@ public class PlayerInput : MonoBehaviour
                     if (collider.gameObject.tag == selectedShape)
                     {
                         //destroy the shape
+						GameObject effectIns = (GameObject) Instantiate(Vapour, transform.position, transform.rotation);
+						Destroy (effectIns, 1f);
+
                         Destroy(collider.gameObject);
 
                         destroyedShape = true;
