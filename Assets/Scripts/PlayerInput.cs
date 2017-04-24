@@ -18,7 +18,7 @@ public class PlayerInput : MonoBehaviour
 
     public BoxCollider2D box;
 
-	public GameObject Vapour;
+	public GameObject Vapour;   //<<< Particle System Zac is working on
 
     public float lastFrameButtonState = 0.0f;
 
@@ -113,12 +113,14 @@ public class PlayerInput : MonoBehaviour
                     if (collider.gameObject.tag == selectedShape)
                     {
                         //destroy the shape
-						GameObject effectIns = (GameObject) Instantiate(Vapour, transform.position, transform.rotation);
-						Destroy (effectIns, 1f);
 
                         Destroy(collider.gameObject);
 
+						GameObject effectIns = (GameObject) Instantiate(Vapour, transform.position, transform.rotation); // Zac is working on this
+						Destroy (effectIns, 1f);     //<< Zac is working on this
+
                         destroyedShape = true;
+					
 
                         //NOTE: temporary score setting, replace with detecting perfects and goods
                         int score = standardScore;
