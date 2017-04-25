@@ -51,9 +51,8 @@ public class SceneManagement : MonoBehaviour {
 	}
     public void LoadWolfScene()
     {
-        SceneManager.LoadScene ("GameSene 3");
-    }
-        
+        SceneManager.LoadScene ("GameScene 3");
+    }        
 	public void LoadOptionsScene()
 	{
 		SceneManager.LoadScene ("Options");
