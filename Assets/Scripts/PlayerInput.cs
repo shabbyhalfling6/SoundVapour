@@ -113,14 +113,12 @@ public class PlayerInput : MonoBehaviour
                     if (collider.gameObject.tag == selectedShape)
                     {
                         //destroy the shape
-
                         Destroy(collider.gameObject);
 
-						GameObject effectIns = (GameObject) Instantiate(Vapour, transform.position, transform.rotation); // Zac is working on this
-						Destroy (effectIns, 1f);     //<< Zac is working on this
-
                         destroyedShape = true;
-					
+
+                        GameObject effectIns = (GameObject)Instantiate(Vapour, transform.position, transform.rotation); // Zac is working on this
+                        Destroy(effectIns, 0.7f);     //<< Zac is working on thiss
 
                         //NOTE: temporary score setting, replace with detecting perfects and goods
                         int score = standardScore;
