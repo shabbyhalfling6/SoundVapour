@@ -117,8 +117,27 @@ public class PlayerInput : MonoBehaviour
 
                         destroyedShape = true;
 
-                        GameObject effectIns = (GameObject)Instantiate(Vapour, transform.position, transform.rotation); // Zac is working on this
-                        Destroy(effectIns, 0.7f);     //<< Zac is working on thiss
+						GameObject effectIns = (GameObject)Instantiate(Vapour, collider.transform.position, Quaternion.identity); // Zac is working on this
+                        Destroy(effectIns, 0.7f);     //<< Zac is working on this
+
+						ParticleSystem ps = effectIns.GetComponent <ParticleSystem> ();
+
+						var m = ps.main;
+						m.startColor = Color.red;
+
+
+						if (collider.gameObject.tag == "Square")
+						m.startColor = Color.red;
+						
+						if (collider.gameObject.tag == "X")
+						m.startColor = Color.green;
+						
+						if (collider.gameObject.tag == "Circle")
+						m.startColor = Color.blue;
+
+						if (collider.gameObject.tag == "Triangle")
+						m.startColor = Color.yellow;
+						
 
                         //NOTE: temporary score setting, replace with detecting perfects and goods
                         int score = standardScore;
