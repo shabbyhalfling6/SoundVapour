@@ -9,7 +9,8 @@ public class MenuDial : SceneManagement {
 	public static GameObject BottomDialSelect;
 	public static GameObject LeftDialSelect;
 	public static GameObject RightDialSelect;
-	public string selectedOption;
+	public static string newSelectedOption;
+	public static string selectedOption;
 	private float horizontalDialSelection;
 	private float verticalDialSelection;
 	private Color selectedColor = Color.white;

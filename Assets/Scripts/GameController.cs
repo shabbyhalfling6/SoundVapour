@@ -85,6 +85,7 @@ public class GameController : MonoBehaviour
 			endScreen.SetActive (true);
 			SongEndButtonSelection ();
 			Time.timeScale = 0.0f;
+			hasGameEnded = true;
 		} 
 		else 
 		{
