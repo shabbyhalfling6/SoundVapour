@@ -22,6 +22,10 @@ public class PlayerInput : MonoBehaviour
 
     public float lastFrameButtonState = 0.0f;
 
+	public AudioHighPassFilter dampen;
+
+	private float dampenCounter;
+
 	public AudioSource pauseSound;
 	public AudioSource recordScratch;
 	void Start()
@@ -29,6 +33,8 @@ public class PlayerInput : MonoBehaviour
         anim = this.GetComponentInChildren<Animator>();
 		pauseMenu = GameObject.Find ("PauseMenu");
 		pauseMenu.SetActive (false);
+
+		dampen.enabled = false;
 	}
 
     void Update()
@@ -157,7 +163,13 @@ public class PlayerInput : MonoBehaviour
             PlayerScore.Instance.hitCount = 0;
 			recordScratch.Play();
 
+			dampen.enabled = true;
+			dampenCounter = recordScratch.clip.length;
         }
+
+		dampenCounter -= Time.deltaTime;
+		if (dampenCounter < 0)
+			dampen.enabled = false;
     }
 
     private void LateUpdate()
