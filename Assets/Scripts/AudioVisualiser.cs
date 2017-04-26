@@ -14,7 +14,7 @@ public class AudioVisualiser : MonoBehaviour {
     public GameObject[] audioSpectrumObjects;
     public GameObject sphere;
 
-    public AudioSource currentSong;
+    AudioSource currentSong;
 
     public FFTWindow fftWindow;
 
@@ -23,10 +23,15 @@ public class AudioVisualiser : MonoBehaviour {
     {
         audioSpectrumObjects = new GameObject[numberOfSamples];
 
+        currentSong = Camera.main.GetComponent<AudioSource>();
+
         for(int i = 0; i < audioSpectrumObjects.Length; i++)
         {
             GameObject newSphere = Instantiate(sphere, new Vector3(Random.Range(-range, range), Random.Range(-range, range), Random.Range(-range, range)), sphere.transform.rotation);
             audioSpectrumObjects[i] = newSphere;
+
+            var mat = newSphere.GetComponent<Renderer>().material;
+            mat.color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
         }
 	}
 	
@@ -42,9 +47,15 @@ public class AudioVisualiser : MonoBehaviour {
         {
             var rend = audioSpectrumObjects[i].gameObject.GetComponent<Renderer>();
             var mat = rend.material;
-            // spectrum[i] * lightIntensity;
-            //audioSpectrumObjects[i].gameObject.GetComponent<Rendere>().color = 
-                mat.color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+            var col = mat.color;
+
+            float h, s, v;
+            Color.RGBToHSV(col, out h, out s, out v);
+
+            v = spectrum[i] * lightIntensity;
+
+            mat.color = Color.HSVToRGB(h, s, v);
+
         }
 	}
 }
