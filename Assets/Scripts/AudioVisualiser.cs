@@ -10,6 +10,8 @@ public class AudioVisualiser : MonoBehaviour {
     public float lightIntensity = 1.4f;
     public float range = 250.0f;
     public float rotateSpeed = 3.0f;
+    public float scaleRangeMin = 1, scaleRangeMax = 2;
+    public int powerScale = 6;
 
     public GameObject[] audioSpectrumObjects;
     public GameObject sphere;
@@ -51,11 +53,17 @@ public class AudioVisualiser : MonoBehaviour {
 
             float h, s, v;
             Color.RGBToHSV(col, out h, out s, out v);
+            var lerpVal = spectrum[i];
 
-            v = spectrum[i] * lightIntensity;
+            lerpVal = Mathf.Pow(lerpVal, 1.0f / powerScale);
+
+            //needs a min
+            v = Mathf.Max(0.2f, lerpVal * lightIntensity);
 
             mat.color = Color.HSVToRGB(h, s, v);
 
+            //could be off a different spectrum area
+            audioSpectrumObjects[i].transform.localScale =  Vector3.one * Mathf.LerpUnclamped(scaleRangeMin, scaleRangeMax, lerpVal);
         }
 	}
 }
