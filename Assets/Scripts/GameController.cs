@@ -61,6 +61,8 @@ public class GameController : MonoBehaviour
 		{
 			audibleTrack.Pause();
 			spawnerTrack.Pause();
+	
+
 		}
 		if (PlayerInput.isPaused == false) 
 		{

@@ -22,6 +22,8 @@ public class PlayerInput : MonoBehaviour
 
     public float lastFrameButtonState = 0.0f;
 
+	public AudioSource pauseSound;
+
 	void Start()
 	{
         anim = this.GetComponentInChildren<Animator>();
@@ -122,10 +124,12 @@ public class PlayerInput : MonoBehaviour
 
 						ParticleSystem ps = effectIns.GetComponent <ParticleSystem> ();
 
+						//grab the main base color
 						var m = ps.main;
-						m.startColor = Color.red;
+						//m.startColor = Color.red;
 
 
+						//Change the color of the particle effect to match the shaped that is vapourised 
 						if (collider.gameObject.tag == "Square")
 						m.startColor = Color.red;
 						
@@ -168,6 +172,7 @@ public class PlayerInput : MonoBehaviour
 		{
 			Time.timeScale = 0;
 			isPaused = true;
+			pauseSound.Play();
 		} 
 		else 
 		{
