@@ -23,7 +23,7 @@ public class PlayerInput : MonoBehaviour
     public float lastFrameButtonState = 0.0f;
 
 	public AudioSource pauseSound;
-
+	public AudioSource recordScratch;
 	void Start()
 	{
         anim = this.GetComponentInChildren<Animator>();
@@ -155,6 +155,8 @@ public class PlayerInput : MonoBehaviour
         if (Vapourise() && !destroyedShape)
         {
             PlayerScore.Instance.hitCount = 0;
+			recordScratch.Play();
+
         }
     }
 
