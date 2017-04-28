@@ -103,10 +103,10 @@ public class GameController : MonoBehaviour
             return _instance;
         }
     }
-	public void SongEndButtonSelection()
-	{
+    public void SongEndButtonSelection()
+    {
 		EventSystem.current.firstSelectedGameObject = null;
 		EndFirstSelectedButton = GameObject.Find ("Retry");
 		EventSystem.current.SetSelectedGameObject(EndFirstSelectedButton);
-	}
+    }
 }
