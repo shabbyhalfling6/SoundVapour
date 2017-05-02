@@ -19,6 +19,7 @@ public class PlayerInput : MonoBehaviour
     public BoxCollider2D box;
 
 	public GameObject Vapour;   //<<< Particle System Zac is working on
+	public GameObject textScoreVap;
 
     public float lastFrameButtonState = 0.0f;
 
@@ -127,6 +128,9 @@ public class PlayerInput : MonoBehaviour
 
 						GameObject effectIns = (GameObject)Instantiate(Vapour, collider.transform.position, Quaternion.identity); // Zac is working on this
                         Destroy(effectIns, 0.7f);     //<< Zac is working on this
+
+						GameObject effectsIns = (GameObject)Instantiate(textScoreVap, collider.transform.position, Quaternion.identity); // Zac is working on this
+						Destroy(effectIns, 2.0f);    //Zac is working on this... It currently doesnt work properly..
 
 						ParticleSystem ps = effectIns.GetComponent <ParticleSystem> ();
 
